@@ -70,4 +70,27 @@ public class StudentController {
         }
         return studentList;
     }
+
+    @DeleteMapping("/delete/{studentid}")
+    public String deleteStudentById(@PathVariable("studentid") int studentId){
+        studentDB.remove(studentId);
+        return "Student with id "+studentId+" got deleted";
+    }
+
+
+    @PutMapping("/update/{studentid}")
+    public String updateStudent(@PathVariable("studentid") int studentId, @RequestBody Student studentRequest){
+        // find the student details with id
+        // if student present update the details
+        // else not update
+
+        Student student = studentDB.get(studentId);
+        if(student!=null){
+            studentDB.put(studentId,studentRequest);
+            return "student updated successfully";
+        }else{
+            return "student not found cannot update";
+        }
+
+    }
 }
